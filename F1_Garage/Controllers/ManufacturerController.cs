@@ -8,14 +8,14 @@ namespace F1_Garage.Controllers
 {
     public class ManufacturerController : Controller
     {
-        private readonly IManufacturerRepository _manufacturerRepo;
-        public ManufacturerController(IManufacturerRepository db)
+        private readonly IUnitOfWork _unitOfWork;
+        public ManufacturerController(IUnitOfWork unitOfWork)
         {
-            _manufacturerRepo = db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Manufacturer> objManufacturerList = _manufacturerRepo.GetAll().ToList();
+            List<Manufacturer> objManufacturerList = _unitOfWork.Manufacturer.GetAll().ToList();
             return View(objManufacturerList);
         }
 
@@ -34,8 +34,8 @@ namespace F1_Garage.Controllers
 
             if (ModelState.IsValid)
             {
-                _manufacturerRepo.Add(obj);
-                _manufacturerRepo.Save();
+                _unitOfWork.Manufacturer.Add(obj);
+                _unitOfWork.Save();
                 TempData["Success"] = "New Manufacturer added successfully.";
                 return RedirectToAction("Index");
             }
@@ -49,7 +49,7 @@ namespace F1_Garage.Controllers
             {
                 return NotFound();
             }
-            Manufacturer? manufacturerFromDb = _manufacturerRepo.Get(u=>u.Id == id);
+            Manufacturer? manufacturerFromDb = _unitOfWork.Manufacturer.Get(u=>u.Id == id);
 
             if(manufacturerFromDb == null)
             {
@@ -63,8 +63,8 @@ namespace F1_Garage.Controllers
         {
             if (ModelState.IsValid)
             {
-                _manufacturerRepo.Update(obj);
-                _manufacturerRepo.Save();
+                _unitOfWork.Manufacturer.Update(obj);
+                _unitOfWork.Save();
                 TempData["Success"] = "Manufacturer details have been updated successfully!";
                 return RedirectToAction("Index");
             }
@@ -74,7 +74,7 @@ namespace F1_Garage.Controllers
         // Delete Button
         public IActionResult Delete(int? id)
         {
-            Manufacturer? obj = _manufacturerRepo.Get(u => u.Id == id);
+            Manufacturer? obj = _unitOfWork.Manufacturer.Get(u => u.Id == id);
 
             if (obj == null)
             {
@@ -92,15 +92,15 @@ namespace F1_Garage.Controllers
                 return NotFound();
             }
 
-            Manufacturer? obj = _manufacturerRepo.Get(u => u.Id == id);
+            Manufacturer? obj = _unitOfWork.Manufacturer.Get(u => u.Id == id);
 
             if (obj == null)
             {
                 return NotFound();
             }
 
-            _manufacturerRepo.Remove(obj);
-            _manufacturerRepo.Save();
+            _unitOfWork.Manufacturer.Remove(obj);
+            _unitOfWork.Save();
             TempData["Success"] = "Manufacturer details have been deleted successfully!";
             return RedirectToAction("Index");
         }

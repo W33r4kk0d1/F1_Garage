@@ -5,21 +5,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1_Garage
 {
-    public static class AppConfig
+    public class Program
     {
-        // SERVICES
-        public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+        public static void Main(string[] args)
         {
-            services.AddControllersWithViews();
+            var builder = WebApplication.CreateBuilder(args);
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            // Services
+            builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
-        }
+            var app = builder.Build();
 
-        public static void ConfigureApp(WebApplication app)
-        {
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -36,6 +34,8 @@ namespace F1_Garage
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.Run();
         }
     }
 }

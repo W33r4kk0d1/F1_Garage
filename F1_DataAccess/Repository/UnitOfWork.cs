@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace F1_DataAccess.Repository
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private ApplicationDbContext _db;
         public IManufacturerRepository Manufacturer {  get; private set; }
