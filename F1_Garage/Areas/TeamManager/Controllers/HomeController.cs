@@ -2,8 +2,9 @@ using System.Diagnostics;
 using F1_Garage.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace F1_Garage.Controllers
+namespace F1_Garage.Areas.TeamManager.Controllers
 {
+    [Area("TeamManager")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

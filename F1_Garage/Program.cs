@@ -33,7 +33,7 @@ namespace F1_Garage
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{area=TeamManager}/{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

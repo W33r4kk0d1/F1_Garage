@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using F1_DataAccess.Repository.IRepository;
 using System.Reflection.Metadata.Ecma335;
 
-namespace F1_Garage.Controllers
+namespace F1_Garage.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ManufacturerController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -25,7 +26,7 @@ namespace F1_Garage.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Models.Manufacturer obj)
+        public IActionResult Create(Manufacturer obj)
         {
             if (obj.Name == obj.DisplayOrder.ToString())
             {
