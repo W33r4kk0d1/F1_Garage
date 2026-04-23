@@ -1,6 +1,7 @@
-using System.Diagnostics;
 using F1_Garage.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System.Diagnostics;
 
 namespace F1_Garage.Areas.TeamManager.Controllers
 {
@@ -12,6 +13,18 @@ namespace F1_Garage.Areas.TeamManager.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            var role = HttpContext.Session.GetString("Role");
+
+            if (role != "TeamManager")
+            {
+                context.Result = RedirectToAction("Login", "User");
+            }
+
+            base.OnActionExecuting(context);
         }
 
         public IActionResult Index()

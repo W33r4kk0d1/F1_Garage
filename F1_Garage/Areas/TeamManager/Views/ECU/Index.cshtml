@@ -1,0 +1,45 @@
+﻿@model List<F1_Models.ECU>
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-dark text-white text-center py-3">
+        <h2>ECU</h2>
+    </div>
+
+    <div class="card-body p-4">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Supplier</th>
+                    <th>Version</th>
+                    <th>Status</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td>@obj.Name</td>
+                        <td>@obj.Version</td>
+                        <td>@obj.Limit</td>
+                        <td>
+                            <span class="badge bg-warning">@obj.Limit</span>
+                        </td>
+
+                        <td class="text-center">
+                            <a asp-area="TeamManager"
+                               asp-controller="Cart"
+                               asp-action="AddECU"
+                               asp-route-id="@obj.Id"
+                               class="btn btn-success">
+                                Add to Cart
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,57 +1,68 @@
-﻿@using F1_Models
-@model Tyres
+﻿@model List<F1_Models.Tyres>
 
 <div class="card shadow border-0 mt-4">
-    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+    <div class="card-header bg-secondary bg-gradient py-3">
         <div class="row">
-            <div class=" col text-center">
-                <h2 class="text-white py-2">Create Manufacturer</h2>
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Tyres List</h2>
             </div>
         </div>
     </div>
+
     <div class="card-body p-4">
-
-        <form method="post" class="row">
-            <div class="border p-3">
-                @*<div asp-validation-summary="All"></div>*@
-                <div class="mb-3 row p-1">
-                    <label asp-for="Name" class="ms-2"> </label>
-                    <input asp-for="Name" class="form-control border-0 shadow" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3 row p-1">
-                    <label asp-for="Type" class="ms-2"> </label>
-                    <input asp-for="Type" class="form-control border-0 shadow" />
-                    <span asp-validation-for="Type" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3 row p-1">
-                    <label asp-for="QuantityAllowed" class="ms-2"></label>
-                    <input asp-for="QuantityAllowed" class="form-control border-0 shadow"/>
-                    <span asp-validation-for="QuantityAllowed" class="text-danger"></span>
-                </div>
-
-                <div class="row pt-2">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-primary form-control">Create</button>
-                    </div>
-
-                    <div class="col-6 col-md-3">
-                        <a asp-controller="Manufacturer" asp-action="Index" class="btn btn-secondary border form-control">
-                            Back to List
-                        </a>
-                    </div>
-                </div>
+        <div class="row pb-3">
+            <div class="col-6"></div>
+            <div class="col-6 text-end">
+                <a asp-area="Admin" asp-controller="Tyres" asp-action="Create" class="btn btn-primary">
+                    Add New Tyre
+                </a>
             </div>
-        </form>
+        </div>
 
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Quantity Allowed</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
 
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td>@obj.Name</td>
+                        <td>@obj.Type</td>
+                        <td>@obj.QuantityAllowed</td>
+
+                        <td class="text-center">
+                            <div class="btn-group">
+
+                                <!-- EDIT -->
+                                <a asp-area="Admin"
+                                   asp-controller="Tyres"
+                                   asp-action="Edit"
+                                   asp-route-id="@obj.Id"
+                                   class="btn btn-warning mx-1">
+                                    Edit
+                                </a>
+
+                                <!-- DELETE -->
+                                <a asp-area="Admin"
+                                   asp-controller="Tyres"
+                                   asp-action="Delete"
+                                   asp-route-id="@obj.Id"
+                                   class="btn btn-danger mx-1">
+                                    Delete
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
-
-@section Scripts {
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-}
