@@ -1,16 +1,49 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-dark text-white text-center py-3">
+        <h2>Privacy Policy</h2>
+    </div>
 
-@if (Context.Session.GetString("Role") == "Admin")
-{
-    <a class="btn btn-warning">Edit</a>
-    <a class="btn btn-danger">Delete</a>
-}
-else if (Context.Session.GetString("Role") == "TeamManager")
-{
-    <a class="btn btn-primary">Add to Cart</a>
-}
+    <div class="card-body p-4">
+
+        <p>
+            This web application is developed as part of the SD7501 Web Application Development course at WelTec.
+            It is intended for educational purposes only.
+        </p>
+
+        <h5>Information We Collect</h5>
+        <ul>
+            <li>Usernames and passwords for login authentication</li>
+            <li>User role information (Admin or Team Manager)</li>
+            <li>Cart data related to selected F1 parts</li>
+        </ul>
+
+        <h5>How Information is Used</h5>
+        <ul>
+            <li>To authenticate users and control access to the system</li>
+            <li>To manage system data such as parts and manufacturers</li>
+            <li>To store and display cart selections for team managers</li>
+        </ul>
+
+        <h5>Data Storage</h5>
+        <p>
+            All data is stored locally in a SQL Server database and is not shared with external systems.
+        </p>
+
+        <h5>Security</h5>
+        <p>
+            Basic security measures such as role-based access control are implemented to restrict access
+            to sensitive features of the application.
+        </p>
+
+        <h5>Disclaimer</h5>
+        <p>
+            This application is a prototype and does not implement full production-level security
+            such as encrypted passwords or advanced authentication mechanisms.
+        </p>
+
+    </div>
+</div>
