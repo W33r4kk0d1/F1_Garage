@@ -9,5 +9,6 @@ namespace F1_Garage.Models
         [Required]
         public string Name { get; set; }
         public int DisplayOrder { get; set; }
+        public string Description { get; set; }
     }
 }

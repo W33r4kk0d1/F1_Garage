@@ -1,18 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-wrapper">
+    <div class="hero-section text-white">
+        <div class="text-center">
+            <h1 class="display-3 fw-bold">F1 Garage</h1>
+            <p class="lead">Buy all your parts in one place!</p>
+        </div>
+    </div>
 </div>
-
-@if (Context.Session.GetString("Role") == "Admin")
-{
-    <a class="btn btn-warning">Edit</a>
-    <a class="btn btn-danger">Delete</a>
-}
-else if (Context.Session.GetString("Role") == "TeamManager")
-{
-    <a class="btn btn-primary">Add to Cart</a>
-}
