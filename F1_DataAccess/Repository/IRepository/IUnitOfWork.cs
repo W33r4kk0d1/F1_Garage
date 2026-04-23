@@ -9,6 +9,8 @@ namespace F1_DataAccess.Repository.IRepository
     public interface IUnitOfWork
     {
         IManufacturerRepository Manufacturer {  get; }
+        ITyresRepository Tyres { get; }
+        IECURepository ECU { get; }
         void Save();
     }
 }

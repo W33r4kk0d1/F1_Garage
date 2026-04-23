@@ -4,3 +4,13 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
+
+@if (Context.Session.GetString("Role") == "Admin")
+{
+    <a class="btn btn-warning">Edit</a>
+    <a class="btn btn-danger">Delete</a>
+}
+else if (Context.Session.GetString("Role") == "TeamManager")
+{
+    <a class="btn btn-primary">Add to Cart</a>
+}

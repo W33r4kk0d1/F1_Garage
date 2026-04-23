@@ -1,4 +1,5 @@
 ﻿using F1_Garage.Models;
+using F1_Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1_Garage.Data
@@ -9,6 +10,8 @@ namespace F1_Garage.Data
         {
 
         }
+
+        // Manufacturers
         public DbSet<Manufacturer> Manufacturers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -19,5 +22,17 @@ namespace F1_Garage.Data
                 new Manufacturer { Id = 3, Name = "Brembo", DisplayOrder = 3}
                 );
         }
+
+        // Tyres
+        public DbSet<Tyres> Tyres { get; set; }
+
+        // ECU
+        public DbSet<ECU> ECUs { get; set; }
+
+        // Users for Login
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        // Shopping Cart
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }

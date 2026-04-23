@@ -1,17 +1,16 @@
-﻿using F1_Garage.Data;
-using F1_Garage.Models;
+﻿using F1_DataAccess.Repository.IRepository;
+using F1_Models;
 using Microsoft.AspNetCore.Mvc;
-using F1_DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace F1_Garage.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ManufacturerController : Controller
+    public class TyresController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ManufacturerController(IUnitOfWork unitOfWork)
+        public TyresController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -30,8 +29,8 @@ namespace F1_Garage.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<Manufacturer> objManufacturerList = _unitOfWork.Manufacturer.GetAll().ToList();
-            return View(objManufacturerList);
+            List<Tyres> objList = _unitOfWork.Tyres.GetAll().ToList();
+            return View(objList);
         }
 
         public IActionResult Create()
@@ -40,20 +39,17 @@ namespace F1_Garage.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Manufacturer obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Tyres obj)
         {
-            if (obj.Name == obj.DisplayOrder.ToString())
-            {
-                ModelState.AddModelError("Name", "The Display cannot be the same as the Name!");
-            }
-
             if (ModelState.IsValid)
             {
-                _unitOfWork.Manufacturer.Add(obj);
+                _unitOfWork.Tyres.Add(obj);
                 _unitOfWork.Save();
-                TempData["Success"] = "New Manufacturer added successfully.";
+                TempData["Success"] = "Tyre created successfully!";
                 return RedirectToAction("Index");
             }
+
             return View(obj);
         }
 
@@ -64,31 +60,39 @@ namespace F1_Garage.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Manufacturer? manufacturerFromDb = _unitOfWork.Manufacturer.Get(u => u.Id == id);
+            Tyres? obj = _unitOfWork.Tyres.Get(u => u.Id == id);
 
-            if (manufacturerFromDb == null)
+            if (obj == null)
             {
                 return NotFound();
             }
-            return View(manufacturerFromDb);
+
+            return View(obj);
         }
 
         [HttpPost]
-        public IActionResult Edit(Manufacturer obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Tyres obj)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Manufacturer.Update(obj);
+                _unitOfWork.Tyres.Update(obj);
                 _unitOfWork.Save();
-                TempData["Success"] = "Manufacturer details have been updated successfully!";
+                TempData["Success"] = "Tyre updated successfully!";
                 return RedirectToAction("Index");
             }
+
             return View(obj);
         }
 
         public IActionResult Delete(int? id)
         {
-            Manufacturer? obj = _unitOfWork.Manufacturer.Get(u => u.Id == id);
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Tyres? obj = _unitOfWork.Tyres.Get(u => u.Id == id);
 
             if (obj == null)
             {
@@ -99,6 +103,7 @@ namespace F1_Garage.Areas.Admin.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
             if (id == null || id == 0)
@@ -106,16 +111,16 @@ namespace F1_Garage.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Manufacturer? obj = _unitOfWork.Manufacturer.Get(u => u.Id == id);
+            Tyres? obj = _unitOfWork.Tyres.Get(u => u.Id == id);
 
             if (obj == null)
             {
                 return NotFound();
             }
 
-            _unitOfWork.Manufacturer.Remove(obj);
+            _unitOfWork.Tyres.Remove(obj);
             _unitOfWork.Save();
-            TempData["Success"] = "Manufacturer details have been deleted successfully!";
+            TempData["Success"] = "Tyre deleted successfully!";
             return RedirectToAction("Index");
         }
     }
