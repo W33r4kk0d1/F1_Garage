@@ -9,12 +9,11 @@ namespace F1_DataAccess.Repository.IRepository
     public interface IUnitOfWork
     {
         IManufacturerRepository Manufacturer {  get; }
-        ITyresRepository Tyres { get; }
-        IECURepository ECU { get; }
         IOrderHeaderRepository OrderHeader { get; }
         IOrderDetailsRepository OrderDetails { get; }
-        ICartRepository Cart { get; }
+        ICartRepository CartItem { get; }
         IApplicationUserRepository ApplicationUser { get; }
+        IProductRepository Product { get; }
         void Save();
     }
 }

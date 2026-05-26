@@ -1,0 +1,54 @@
+﻿@model IEnumerable<F1_Models.Products>
+
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-6">
+            <h2>Products</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-primary">
+                Create New Product
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.CategoryId</td>
+
+                    <td class="text-center">
+                        <a asp-area="Admin"
+                           asp-controller="Product"
+                           asp-action="Edit"
+                           asp-route-id="@item.Id"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+
+                        <a asp-area="Admin"
+                           asp-controller="Product"
+                           asp-action="Delete"
+                           asp-route-id="@item.Id"
+                           class="btn btn-danger btn-sm">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

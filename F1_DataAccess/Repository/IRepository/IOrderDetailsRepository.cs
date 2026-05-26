@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace F1_DataAccess.Repository.IRepository
 {
-    public interface IOrderDetailsRepository : IRepository<OrderDetails>
+    public interface IOrderDetailsRepository : IRepository<OrderDetail>
     {
-        void Update(OrderDetails orderDetails);
+        void Update(OrderDetail obj);
     }
 }

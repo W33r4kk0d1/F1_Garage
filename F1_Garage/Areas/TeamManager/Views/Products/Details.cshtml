@@ -1,0 +1,57 @@
+﻿@model F1_Models.CartItem
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<form method="post" asp-area="TeamManager" asp-controller="Cart" asp-action="AddToCart">
+
+    <input asp-for="ProductId" type="hidden" />
+
+    <div class="card border-0 mt-4 mb-4 shadow">
+
+        <div class="card-header bg-secondary text-white text-center py-4">
+            <h3 class="text-uppercase">@Model.Product.Name</h3>
+            <p class="text-white-50 mb-0">@Model.Product.Category.Name</p>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-5 text-center">
+                    <img src="@Model.Product.Image" class="img-fluid rounded" />
+                </div>
+
+                <div class="col-md-7">
+
+                    <h4>@Model.Product.Name</h4>
+
+                    <p class="text-muted">@Html.Raw(Model.Product.Description)</p>
+
+                    <hr />
+
+                    <p>Price: @Model.Product.Price.ToString("C")</p>
+                    <p>50+: @Model.Product.Price50.ToString("C")</p>
+                    <p>100+: @Model.Product.Price100.ToString("C")</p>
+
+                    <hr />
+
+                    <div class="mb-3">
+                        <label>Count</label>
+                        <input asp-for="Count" type="number" min="1" value="1" class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>

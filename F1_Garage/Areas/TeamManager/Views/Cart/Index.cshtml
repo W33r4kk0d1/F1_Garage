@@ -1,12 +1,14 @@
-﻿@model List<F1_Models.CartItem>
+﻿@model F1_Models.CartVM
 
 <div class="card shadow border-0 mt-4">
+
     <div class="card-header bg-dark text-white text-center py-3">
         <h2>Your Cart</h2>
     </div>
 
     <div class="card-body p-4">
-        @if (Model.Count == 0)
+
+        @if (Model.CartItems == null || !Model.CartItems.Any())
         {
             <div class="alert alert-info text-center">
                 Your cart is empty.
@@ -14,24 +16,25 @@
         }
         else
         {
+            <div class="card mb-3 p-3 bg-light">
+                <h5>Order Summary</h5>
+                <p><strong>Total:</strong> @Model.OrderHeader.OrderTotal.ToString("C")</p>
+            </div>
+
             <table class="table table-hover table-striped">
                 <thead>
                     <tr>
                         <th>Item Name</th>
-                        <th>Item Type</th>
                         <th>Quantity</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.CartItems)
                     {
                         <tr>
-                            <td>@item.ECU</td>
-                            <td>
-                                <span class="badge bg-info">@item.ECU</span>
-                            </td>
+                            <td>@item.Product.Name</td>
                             <td>@item.Count</td>
                             <td class="text-center">
                                 <a asp-area="TeamManager"
@@ -47,6 +50,7 @@
                 </tbody>
             </table>
         }
+
         <div class="text-end mt-3">
             <a asp-area="TeamManager"
                asp-controller="Cart"
@@ -55,5 +59,6 @@
                 Checkout
             </a>
         </div>
+
     </div>
 </div>

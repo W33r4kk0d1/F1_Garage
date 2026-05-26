@@ -63,12 +63,8 @@
                                 <a class="nav-link" asp-area="Admin" asp-controller="Manufacturer" asp-action="Index">Manufacturer</a>
                             </li>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Parts</a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Tyres" asp-action="Index">Tyres</a></li>
-                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="ECU" asp-action="Index">ECUs</a></li>
-                                </ul>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Products" asp-action="Index">Parts</a>
                             </li>
                         }
                         else if (role == "TeamManager")
@@ -81,12 +77,8 @@
                                 <a class="nav-link" asp-area="TeamManager" asp-controller="Manufacturer" asp-action="Index">Manufacturer</a>
                             </li>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Parts</a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" asp-area="TeamManager" asp-controller="Tyres" asp-action="Index">Tyres</a></li>
-                                    <li><a class="dropdown-item" asp-area="TeamManager" asp-controller="ECU" asp-action="Index">ECUs</a></li>
-                                </ul>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="TeamManager" asp-controller="Products" asp-action="Index">Parts</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="TeamManager" asp-controller="" asp-action="Privacy">Privacy</a>
