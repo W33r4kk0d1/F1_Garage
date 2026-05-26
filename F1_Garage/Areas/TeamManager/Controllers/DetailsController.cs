@@ -1,16 +1,15 @@
 ﻿using F1_DataAccess.Repository.IRepository;
-using F1_Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace F1_Garage.Areas.TeamManager.Controllers
 {
     [Area("TeamManager")]
-    public class ECUController : Controller
+    public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ECUController(IUnitOfWork unitOfWork)
+        public ProductController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -29,8 +28,18 @@ namespace F1_Garage.Areas.TeamManager.Controllers
 
         public IActionResult Index()
         {
-            List<ECU> objList = _unitOfWork.ECU.GetAll().ToList();
-            return View(objList);
+            var products = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            return View(products);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "Category");
+
+            if (product == null)
+                return NotFound();
+
+            return View(product);
         }
     }
 }

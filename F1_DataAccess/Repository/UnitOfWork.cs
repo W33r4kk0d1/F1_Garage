@@ -12,23 +12,21 @@ namespace F1_DataAccess.Repository
     {
         private ApplicationDbContext _db;
         public IManufacturerRepository Manufacturer {  get; private set; }
-        public ITyresRepository Tyres { get; private set; }
-        public IECURepository ECU { get; private set; }
         public IOrderHeaderRepository OrderHeader { get; private set; }
         public IOrderDetailsRepository OrderDetails { get; private set; }
-        public ICartRepository Cart { get; private set; }
+        public ICartRepository CartItem { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
+        public IProductRepository Product { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             Manufacturer=new ManufacturerRepository(_db);
-            Tyres=new TyresRepository(_db);
-            ECU=new ECURepository(_db);
             OrderHeader=new OrderHeaderRepository(_db);
             OrderDetails=new OrderDetailsRepository(_db);
-            Cart=new CartRepository(_db);
+            CartItem=new CartRepository(_db);
             ApplicationUser=new ApplicationUserRepository(_db);
+            Product=new ProductRepository(_db);
         }
 
         public void Save()

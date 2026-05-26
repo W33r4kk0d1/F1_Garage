@@ -1,0 +1,39 @@
+﻿@model IEnumerable<F1_Models.Products>
+
+<div class="container mt-4">
+    <h2 class="mb-3">Products</h2>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow">
+
+                    <img src="@item.Image" class="card-img-top" style="height:200px; object-fit:cover;" />
+
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+
+                        <p class="card-text">
+                            @item.Description.Substring(0, Math.Min(80, item.Description.Length))...
+                        </p>
+
+                        <p class="fw-bold">$@item.Price</p>
+
+                        <a asp-area="TeamManager"
+                           asp-controller="Products"
+                           asp-action="Details"
+                           asp-route-id="@item.Id"
+                           asp-controller="Product"
+                           asp-action="Details"
+                           asp-route-id="@item.Id"
+                           class="btn btn-primary w-100">
+                                View Details
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>

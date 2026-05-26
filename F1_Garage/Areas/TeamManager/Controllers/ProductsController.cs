@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace F1_Garage.Areas.TeamManager.Controllers
 {
     [Area("TeamManager")]
-    public class TyresController : Controller
+    public class ProductsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public TyresController(IUnitOfWork unitOfWork)
+        public ProductsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -29,8 +29,25 @@ namespace F1_Garage.Areas.TeamManager.Controllers
 
         public IActionResult Index()
         {
-            List<Tyres> objList = _unitOfWork.Tyres.GetAll().ToList();
-            return View(objList);
+            var products = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            return View(products);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "Category");
+
+            if (product == null)
+                return NotFound();
+
+            CartItem cartItem = new CartItem
+            {
+                ProductId = product.Id,
+                Product = product,
+                Count = 1
+            };
+
+            return View(cartItem);
         }
     }
 }

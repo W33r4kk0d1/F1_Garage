@@ -1,12 +1,7 @@
 ﻿using F1_DataAccess.Repository.IRepository;
 using F1_Garage.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace F1_DataAccess.Repository
 {
@@ -17,33 +12,51 @@ namespace F1_DataAccess.Repository
         public Repository(ApplicationDbContext db)
         {
             _db = db;
-            this.dbSet=_db.Set<T>();
+            dbSet = _db.Set<T>();
         }
-
-        void IRepository<T>.Add(T entity)
+        public void Add(T entity)
         {
             dbSet.Add(entity);
         }
-
-        T IRepository<T>.Get(Expression<Func<T, bool>> filter)
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
-            IQueryable<T>query = dbSet;
-            query=query.Where(filter);
+            IQueryable<T> query = dbSet;
+
+            query = query.Where(filter);
+
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties.Split(','))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
             return query.FirstOrDefault();
         }
-
-        IEnumerable<T> IRepository<T>.GetAll()
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, string includeProperties = null)
         {
-            IEnumerable<T> query = dbSet;
+            IQueryable<T> query = dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+
             return query.ToList();
         }
-
-        void IRepository<T>.Remove(T entity)
+        public void Remove(T entity)
         {
             dbSet.Remove(entity);
         }
-
-        void IRepository<T>.RemoveRange(IEnumerable<T> entity)
+        public void RemoveRange(IEnumerable<T> entity)
         {
             dbSet.RemoveRange(entity);
         }

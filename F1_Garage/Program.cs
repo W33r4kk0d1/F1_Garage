@@ -18,6 +18,12 @@ namespace F1_Garage
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession();
             builder.Services.AddHttpContextAccessor();
+            builder.Services.AddAuthentication("Cookies")
+                .AddCookie("Cookies", options =>
+                    {
+                        options.LoginPath = "/User/Login";
+                    });
+            builder.Services.AddAuthorization();
 
             var app = builder.Build();
 

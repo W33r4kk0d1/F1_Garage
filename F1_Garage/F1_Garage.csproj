@@ -22,4 +22,8 @@
     <ProjectReference Include="..\F1_Utilities\F1_Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\TeamManager\Views\Category\" />
+  </ItemGroup>
+
 </Project>

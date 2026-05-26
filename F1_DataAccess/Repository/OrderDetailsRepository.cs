@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace F1_DataAccess.Repository
 {
-    public class OrderDetailsRepository : Repository<OrderDetails>, IOrderDetailsRepository
+    public class OrderDetailsRepository : Repository<OrderDetail>, IOrderDetailsRepository
     {
         private readonly ApplicationDbContext _db;
         public OrderDetailsRepository(ApplicationDbContext db) : base(db)
@@ -22,7 +22,7 @@ namespace F1_DataAccess.Repository
             _db.SaveChanges();
         }
 
-        public void Update(OrderDetails obj)
+        public void Update(OrderDetail obj)
         {
             _db.OrderDetails.Update(obj);
         }
