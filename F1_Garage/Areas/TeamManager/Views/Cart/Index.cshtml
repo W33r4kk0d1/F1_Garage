@@ -28,11 +28,11 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.ItemName</td>
+                            <td>@item.ECU</td>
                             <td>
-                                <span class="badge bg-info">@item.ItemType</span>
+                                <span class="badge bg-info">@item.ECU</span>
                             </td>
-                            <td>@item.Quantity</td>
+                            <td>@item.Count</td>
                             <td class="text-center">
                                 <a asp-area="TeamManager"
                                    asp-controller="Cart"
@@ -47,5 +47,13 @@
                 </tbody>
             </table>
         }
+        <div class="text-end mt-3">
+            <a asp-area="TeamManager"
+               asp-controller="Cart"
+               asp-action="Checkout"
+               class="btn btn-success">
+                Checkout
+            </a>
+        </div>
     </div>
 </div>
