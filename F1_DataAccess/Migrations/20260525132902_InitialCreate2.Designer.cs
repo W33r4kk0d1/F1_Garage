@@ -4,6 +4,7 @@ using F1_Garage.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace F1_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260525132902_InitialCreate2")]
+    partial class InitialCreate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,28 +105,24 @@ namespace F1_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ApplicationUserId")
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ECUId")
-                        .HasColumnType("int");
+                    b.Property<string>("ItemType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TyreId")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("ECUId");
-
-                    b.HasIndex("TyreId");
 
                     b.ToTable("CartItems");
                 });
@@ -343,33 +342,6 @@ namespace F1_DataAccess.Migrations
                             QuantityAllowed = "2",
                             Type = "Full Wet (Treaded)"
                         });
-                });
-
-            modelBuilder.Entity("F1_Models.CartItem", b =>
-                {
-                    b.HasOne("F1_Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("F1_Models.ECU", "ECU")
-                        .WithMany()
-                        .HasForeignKey("ECUId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("F1_Models.Tyres", "Tyre")
-                        .WithMany()
-                        .HasForeignKey("TyreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("ECU");
-
-                    b.Navigation("Tyre");
                 });
 
             modelBuilder.Entity("F1_Models.OrderDetails", b =>

@@ -11,6 +11,10 @@ namespace F1_DataAccess.Repository.IRepository
         IManufacturerRepository Manufacturer {  get; }
         ITyresRepository Tyres { get; }
         IECURepository ECU { get; }
+        IOrderHeaderRepository OrderHeader { get; }
+        IOrderDetailsRepository OrderDetails { get; }
+        ICartRepository Cart { get; }
+        IApplicationUserRepository ApplicationUser { get; }
         void Save();
     }
 }
