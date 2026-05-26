@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace F1_Models
 {
-    public class ECU : Products
+    public class Category
     {
         [Key]
         public int Id { get; set; }
@@ -15,8 +15,6 @@ namespace F1_Models
         [Required]
         public string Name { get; set; }
 
-        public string Version { get; set; }
-
-        public string Limit { get; set; }
+        public List<Products> Products { get; set; } = new List<Products>();
     }
 }

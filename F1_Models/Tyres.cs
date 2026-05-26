@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace F1_Models
 {
-    public class Tyres
+    public class Tyres : Products
     {
         [Key]
         public int Id { get; set; }

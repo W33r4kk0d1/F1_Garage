@@ -11,13 +11,9 @@ namespace F1_Models
 
         public int UserId { get; set; }
 
-        public int ECUId { get; set; }
-        [ForeignKey("ECUId")]
-        public ECU ECU { get; set; }
-
-        public int TyreId { get; set; }
-        [ForeignKey("TyreId")]
-        public Tyres Tyre { get; set; }
+        public int ProductId { get; set; }
+        [ForeignKey("ProductId")]
+        public Products Product { get; set; }
 
         [Range(1, 1000, ErrorMessage = "Please enter a value between 1 and 1000")]
         public int Count { get; set; }
